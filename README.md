@@ -2,7 +2,7 @@
 
 in the Merge menu (Alt+M)
 
-in edit mode on selected objects:
+in edit mode on selected objects    
 removing by default (without any selection): 
 - doubles (vertices)  
 - free vertices
