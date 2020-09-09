@@ -5,9 +5,12 @@ in the Merge menu (Alt+M)
 in edit mode on selected objects    
 removing by default (without any selection): 
 
-- doubles (vertices)  
-- free vertices
-- free edges
+- remove doubles (vertices)
+- overlapping edges
+- loose vertices
+- loose edges
+- loose faces
+- redundant vertices
 - interior faces*  
 
 you can undo each option in the redo panel (F9)
