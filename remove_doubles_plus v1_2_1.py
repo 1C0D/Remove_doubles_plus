@@ -6,7 +6,7 @@ import math
 bl_info = {
     "name": "remove doubles plus",
     "author": "1C0D",
-    "version": (1, 2, 0),
+    "version": (1, 2, 1),
     "blender": (2, 81, 0),
     "category": "Mesh"}
 
@@ -75,11 +75,12 @@ class Remove_doubles_plus(bpy.types.Operator):
     def execute(self, context):
 
         for ob in context.selected_objects:
-            bm = bmesh.from_edit_mesh(ob.data)
-            bm.normal_update()
-            bm.verts.ensure_lookup_table()
-            self.clean_geometry(bm)
-            bmesh.update_edit_mesh(ob.data)
+            if ob.type == "MESH":
+                bm = bmesh.from_edit_mesh(ob.data)
+                bm.normal_update()
+                bm.verts.ensure_lookup_table()
+                self.clean_geometry(bm)
+                bmesh.update_edit_mesh(ob.data)
 
         return {'FINISHED'}
 
