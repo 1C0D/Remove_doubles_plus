@@ -79,7 +79,14 @@ class Remove_doubles_plus(bpy.types.Operator):
                 bm = bmesh.from_edit_mesh(ob.data)
                 bm.normal_update()
                 bm.verts.ensure_lookup_table()
+                verts=len(bm.verts[:])
+                edges=len(bm.edges[:])
+                faces=len(bm.faces[:])
                 self.clean_geometry(bm)
+                rmv_verts= verts-len(bm.verts)
+                rmv_edges= edges-len(bm.edges)
+                rmv_faces= faces-len(bm.faces)
+                self.report({'WARNING'}, f"-[Vert:{rmv_verts}, Edg:{rmv_edges}, Fc:{rmv_faces}]")
                 bmesh.update_edit_mesh(ob.data)
 
         return {'FINISHED'}
