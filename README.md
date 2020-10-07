@@ -5,6 +5,7 @@ in the Merge menu (Alt+M)
 in edit mode on selected objects    
 removing by default (without any selection): 
 
+- recalculate normals
 - remove doubles (vertices)
 - overlapping edges
 - loose vertices
