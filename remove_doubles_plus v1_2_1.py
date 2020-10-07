@@ -6,7 +6,7 @@ import math
 bl_info = {
     "name": "remove doubles plus",
     "author": "1C0D",
-    "version": (1, 2, 1),
+    "version": (1, 3, 0),
     "blender": (2, 81, 0),
     "category": "Mesh"}
 
@@ -18,6 +18,7 @@ class Remove_doubles_plus(bpy.types.Operator):
     bl_description = 'remove doubles than loose edges and vertices then insidefaces'
     bl_options = {"UNDO", "REGISTER"}
 
+    recalc_normals: BoolProperty(name="Recalculate normals", default=True)
     rmv_doubles: BoolProperty(name="Remove doubles", default=True)
     rmv_doubles_threshold: FloatProperty(
         name="Threshold", default=0.0001, precision=4, step=0.004, min=0)
@@ -34,6 +35,9 @@ class Remove_doubles_plus(bpy.types.Operator):
     rmv_loose_faces: BoolProperty(name="loose faces", default=False)
 
     def clean_geometry(self, bm):
+
+        if self.recalc_normals:
+            bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
 
         if self.rmv_doubles:
             bmesh.ops.remove_doubles(
@@ -69,8 +73,8 @@ class Remove_doubles_plus(bpy.types.Operator):
                               (self.straightness <
                                math.degrees((v.link_edges[0].other_vert(v).co-v.co)
                                             .angle(v.link_edges[1].other_vert(v).co - v.co)) < 181)]
-
             bmesh.ops.dissolve_verts(bm, verts=straight_edged)
+
 
     def execute(self, context):
 
