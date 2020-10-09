@@ -1,14 +1,15 @@
-# Remove_doubles_plus  
-# MultiMerge 
+# Remove_doubles_plus & MultiMerge 
 
 in the Merge menu (Alt+M) 
 in edit mode on selected objects    
-removing by default (without any selection)  
+removing by default (without any selection) 
+
 
 ## MultiMerge 
 select several vertices on 2 loops (4 extremities)  
 so a minimum of 4 verts 
-merge all at once (center, first, last, correct UVs) 
+merge all at once (center, first, last, correct UVs)
+
 
 ## Remove doubles plus 
 - recalculate normals 
