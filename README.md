@@ -9,7 +9,7 @@ removing by default (without any selection)
 select several vertices on 2 loops (4 extremities)  
 so a minimum of 4 verts 
 merge all at once (center, first, last)
-you can select by pairs of vertices too and do some pattern see https://youtu.be/OGZTus198h0
+you can select by pairs of vertices too and do some paterns. see https://youtu.be/OGZTus198h0
 
 ## Remove doubles plus 
 - recalculate normals 
