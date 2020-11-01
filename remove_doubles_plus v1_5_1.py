@@ -39,7 +39,7 @@ def main(self, context):
 
 #--Sequences--#
     def deselect():
-        for f in bm.edges:
+        for f in bm.faces:
             f.select = False
         for e in bm.edges:
             e.select = False
