@@ -8,8 +8,8 @@ from bpy.props import FloatProperty, BoolProperty, EnumProperty
 bl_info = {
     "name": "remove doubles plus",
     "author": "1C0D",
-    "version": (1, 5, 0),
-    "blender": (2, 81, 0),
+    "version": (1, 6, 0),
+    "blender": (2, 83, 0),
     "category": "Mesh"}
 
 '''add move to cursor (offset)to menu?'''
@@ -265,22 +265,35 @@ class Remove_OT_doubles_plus(bpy.types.Operator):
             bmesh.ops.dissolve_verts(bm, verts=straight_edged)
 
     def execute(self, context):
-
-        for ob in context.selected_objects:
+        len_verts=0
+        len_edges=0
+        len_faces=0
+        len_rmv_verts=0
+        len_rmv_edges=0
+        len_rmv_faces=0
+        
+        for ob in context.objects_in_mode:
             if ob.type == "MESH":
                 bm = bmesh.from_edit_mesh(ob.data)
                 bm.normal_update()
                 bm.verts.ensure_lookup_table()
                 verts = len(bm.verts[:])
+                len_verts+=verts
                 edges = len(bm.edges[:])
+                len_edges+=edges
                 faces = len(bm.faces[:])
+                len_faces+=faces
                 self.clean_geometry(bm)
                 rmv_verts = verts-len(bm.verts)
+                len_rmv_verts+=rmv_verts
                 rmv_edges = edges-len(bm.edges)
+                len_rmv_edges+=rmv_edges
                 rmv_faces = faces-len(bm.faces)
-                self.report(
-                    {'WARNING'}, f"-[Vert:{rmv_verts}, Edg:{rmv_edges}, Fc:{rmv_faces}]")
+                len_rmv_faces+=rmv_faces
                 bmesh.update_edit_mesh(ob.data)
+                
+        self.report(
+            {'WARNING'}, f"-[Vert:{len_rmv_verts}, Edg:{len_rmv_edges}, Fc:{len_rmv_faces}]")
 
         return {'FINISHED'}
 
