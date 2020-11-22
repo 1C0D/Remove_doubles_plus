@@ -8,7 +8,7 @@ from bpy.props import FloatProperty, BoolProperty, EnumProperty
 bl_info = {
     "name": "remove doubles plus",
     "author": "1C0D",
-    "version": (1, 6, 0),
+    "version": (1, 6, 1),
     "blender": (2, 83, 0),
     "category": "Mesh"}
 
@@ -39,10 +39,6 @@ def main(self, context):
 
 #--Sequences--#
     def deselect():
-        for f in bm.faces:
-            f.select = False
-        for e in bm.edges:
-            e.select = False
         for v in bm.verts:
             v.select = False
         bm.select_flush(False)
@@ -84,6 +80,7 @@ def main(self, context):
             for v in history:
                 v.select = True
                 bm.select_history.add(v)
+            bm.select_flush(True)
         else:
             pass
 
