@@ -8,7 +8,7 @@ from bpy.props import FloatProperty, BoolProperty, EnumProperty
 bl_info = {
     "name": "remove doubles plus",
     "author": "1C0D",
-    "version": (1, 6, 1),
+    "version": (1, 6, 2),
     "blender": (2, 83, 0),
     "category": "Mesh"}
 
@@ -242,11 +242,10 @@ class Remove_OT_doubles_plus(bpy.types.Operator):
             bmesh.ops.delete(bm, geom=loose_edges, context="EDGES")
 
         if self.rmv_loose_faces:
-            mode = bm.select_mode
             loose_faces = [f for f in bm.faces if all(
                 [not e.is_manifold and e.is_boundary for e in f.edges])]
             bmesh.ops.delete(bm, geom=loose_faces, context="FACES")
-            bm.select_mode = mode
+
 
         if self.interior_faces:
             loose_faces = [e for e in bm.edges if len(e.link_faces) >= 3]
@@ -309,6 +308,7 @@ def register():
     bpy.utils.register_class(Remove_OT_doubles_plus)
     bpy.utils.register_class(Multi_OT_Lerp_Merge)
     bpy.types.VIEW3D_MT_edit_mesh_merge.append(doubles_plus)
+    bpy.types.VIEW3D_MT_edit_mesh_delete.append(doubles_plus)
     bpy.types.VIEW3D_MT_edit_mesh_merge.prepend(multi_merge)
 
 
@@ -316,4 +316,5 @@ def unregister():
     bpy.utils.unregister_class(Remove_OT_doubles_plus)
     bpy.utils.unregister_class(Multi_OT_Lerp_Merge)
     bpy.types.VIEW3D_MT_edit_mesh_merge.remove(doubles_plus)
+    bpy.types.VIEW3D_MT_edit_mesh_delete.remove(doubles_plus)
     bpy.types.VIEW3D_MT_edit_mesh_merge.remove(multi_merge)
