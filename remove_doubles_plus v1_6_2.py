@@ -9,7 +9,7 @@ bl_info = {
     "name": "remove doubles plus",
     "author": "1C0D",
     "version": (1, 6, 2),
-    "blender": (2, 83, 0),
+    "blender": (2, 93, 0),
     "category": "Mesh"}
 
 '''add move to cursor (offset)to menu?'''
