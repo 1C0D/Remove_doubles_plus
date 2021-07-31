@@ -243,7 +243,7 @@ class Remove_OT_doubles_plus(bpy.types.Operator):
 
         if self.rmv_loose_faces:
             loose_faces = [f for f in bm.faces if all(
-                [not e.is_manifold and e.is_boundary for e in f.edges])]
+                [e.is_boundary for e in f.edges])]
             bmesh.ops.delete(bm, geom=loose_faces, context="FACES")
 
 
